@@ -1,0 +1,50 @@
+{
+  "name": "vox-video-starter-studio",
+  "version": "1.0.0",
+  "description": "Caption-driven VOX paper-collage video pipeline",
+  "repository": {},
+  "license": "MIT",
+  "private": true,
+  "packageManager": "pnpm@10.15.0",
+  "dependencies": {
+    "@remotion/captions": "4.0.490",
+    "@remotion/cli": "4.0.490",
+    "@remotion/fonts": "4.0.490",
+    "@remotion/install-whisper-cpp": "4.0.490",
+    "@remotion/media": "4.0.490",
+    "@remotion/transitions": "4.0.490",
+    "mediabunny": "^1.36.7",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.490",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@remotion/eslint-config-flat": "4.0.490",
+    "@types/node": "^24.0.0",
+    "@types/react": "19.2.7",
+    "@types/web": "0.0.166",
+    "eslint": "9.19.0",
+    "prettier": "3.8.1",
+    "tsx": "^4.20.3",
+    "typescript": "5.7.3"
+  },
+  "scripts": {
+    "dev": "remotion studio",
+    "build": "remotion bundle",
+    "upgrade": "remotion upgrade",
+    "lint": "eslint src scripts && tsc",
+    "test": "tsx --test tests/*.test.ts",
+    "doctor": "tsx scripts/doctor.ts",
+    "episode:new": "tsx scripts/episode-new.ts",
+    "assets:matte": "tsx scripts/run-python.ts scripts/matte-assets.py",
+    "audio:build": "tsx scripts/audio-build.ts",
+    "timeline:build": "tsx scripts/timeline-build.ts",
+    "render:preview": "tsx scripts/render.ts preview",
+    "render:final": "tsx scripts/render.ts final",
+    "qa": "tsx scripts/qa.ts"
+  },
+  "sideEffects": [
+    "*.css"
+  ]
+}

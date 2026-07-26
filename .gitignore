@@ -1,0 +1,16 @@
+.DS_Store
+Thumbs.db
+studio/node_modules/
+studio/.venv/
+studio/.env
+studio/out/
+studio/tmp/
+studio/dist/
+studio/whisper.cpp/
+studio/public/episodes/*/audio/
+studio/public/episodes/*/assets/source/
+studio/public/episodes/*/assets/matted/
+studio/public/episodes/*/assets/backgrounds/
+*.log
+__pycache__/
+*.pyc

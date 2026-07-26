@@ -1,0 +1,4 @@
+interface:
+  display_name: "VOX Video Studio"
+  short_description: "从内容方向配置到字幕驱动的完整 VOX 拼贴视频流水线"
+  default_prompt: "Use $vox-video-studio to configure my content direction and build my first VOX-style video."

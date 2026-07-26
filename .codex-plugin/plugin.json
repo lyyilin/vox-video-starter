@@ -1,0 +1,24 @@
+{
+  "name": "vox-video-starter",
+  "version": "0.1.0",
+  "description": "A reusable, caption-driven VOX paper-collage video workflow for Codex and Remotion.",
+  "author": {
+    "name": "VOX Video Starter Contributors"
+  },
+  "license": "MIT",
+  "keywords": ["vox", "remotion", "video", "imagegen", "captions"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "VOX Video Starter",
+    "shortDescription": "Configure your channel and build caption-driven collage videos.",
+    "longDescription": "Onboard a creator's own content direction, research and approve a script and storyboard, generate clean VOX collage assets, synthesize narration, align captions, render previews, run QA, and deliver a final Remotion video.",
+    "developerName": "VOX Video Starter Contributors",
+    "category": "Creative",
+    "capabilities": ["Interactive", "Write"],
+    "defaultPrompt": [
+      "Set up my content direction before making a VOX video.",
+      "Turn my approved topic into a VOX video.",
+      "Check whether this computer is ready for the pipeline."
+    ]
+  }
+}
