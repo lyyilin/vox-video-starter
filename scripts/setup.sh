@@ -39,4 +39,4 @@ if [[ ! -f .env ]]; then
 fi
 
 pnpm run doctor
-echo "Setup complete. Next: run scripts/install-skill.sh, start a new Agent task, and paste AGENT_BOOTSTRAP_PROMPT.md."
+echo "Setup complete. Return to the copy-and-paste Agent prompt in README.md."

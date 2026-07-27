@@ -1,91 +1,59 @@
 # VOX Video Starter
 
-一个可以交给 Codex/Agent 使用的开源 VOX 纸片拼贴视频流水线。
+把一个内容方向交给 Codex，自动完成环境配置、素材生成、配音、字幕、VOX 纸片拼贴动画、审片和高清成片交付。
 
-它不会自带任何账号定位。第一次使用时，Agent 会先询问你的内容方向、受众、口播语气、证据标准、视觉风格和禁区，生成你自己的 `content-profile.md`，等待你确认后才进入视频制作。
+## 复制给 Codex，开始使用
 
-## 它能完成什么
-
-完整流程：
+不需要先手动安装依赖或配置运行环境。新建一个 Codex 任务，把下面整段内容复制过去：
 
 ```text
-内容方向采集 → 方向确认 → 选题与研究 → 逐字稿 → 分镜确认
-→ 总宫格图 → 独立素材生成 → rembg 抠图 → 整段 TTS 配音
-→ Whisper 字幕对齐 → 字幕驱动 Remotion 动画 → 低清确认
-→ 1080p 成片 → QA 与交付
+请帮我安装并接管 VOX Video Starter，然后带我完成内容方向配置。项目仓库：
+https://github.com/lyyilin/vox-video-starter.git
+
+请自主执行下面的工作，不要把安装命令和常规环境配置转交给我：
+
+1. 先检查当前工作区。如果已经位于 vox-video-starter 仓库，就直接使用；如果没有仓库，就在当前工作区内克隆上述地址。不得覆盖同名目录或用户已有文件。
+2. 完整读取仓库内的 README.md、skills/vox-video-studio/SKILL.md，以及 Skill 要求的必要 references 和 docs。当前任务即使尚未发现全局 Skill，也要直接遵守仓库内 Skill；同时将它安全安装到用户级 Skill 目录，供后续新任务使用。若目标位置已有同名 Skill，先比较内容，禁止盲目覆盖。
+3. 自动识别操作系统，检查 Git、Node.js 20+、pnpm 9+、Python 3.10、FFmpeg 和 FFprobe。缺失时使用该系统可信的官方安装渠道自动安装；只有确实需要管理员权限时才向我申请确认。禁止关闭 TLS 证书验证，禁止使用不可信下载源，禁止修改无关的全局配置。
+4. 自动完成 Remotion/npm 依赖、Python 虚拟环境、rembg 和 Seed-TTS 2 适配器的安装。运行适合当前系统的 setup 脚本，并在 studio 中运行 pnpm run doctor、pnpm run lint 和 pnpm test。普通网络错误自动重试；失败时先诊断原因并完成仍可执行的步骤。
+5. Whisper 模型、rembg 模型和 Remotion 浏览器按需下载，不要让大型下载阻塞首次内容方向配置；第一次真正用到它们时自动完成下载和验证。
+6. 检查当前 Codex 是否具有内置 Imagegen、Worker/Subagent 和 Remotion best-practices Skill/插件。可以通过当前环境安装或启用时由你处理；确实不可用时说明具体影响，不要伪造能力，也不要用项目里的 OpenAI API 替代内置 Imagegen。
+7. 检查 studio/.env。若 Seed-TTS 2 API Key 缺失，向我索取一次，并由你写入被 Git 忽略的 studio/.env。密钥不得被重复展示、回显、写进命令行、日志、代码、JSON、补丁差异或 Git 提交。不得读取或展示其他已有密钥。
+8. 环境达到可用状态后，不要等待大型模型下载，立即开始首次内容配置。每轮最多问我三个简短问题，收集内容定位、目标受众、选题范围、证据标准、口播语气、视觉方向、内容禁区、发布平台和目标时长。
+9. 将整理后的完整方向写入 studio/config/content-profile.md，展示给我并暂停，等待我回复“方向确认”。方向确认前不要研究具体选题、写最终逐字稿、生成图片、调用 TTS 或渲染视频。
+10. 方向确认后，每条视频严格执行：选题与研究 → 最终逐字稿与分镜 → 等待“分镜确认” → 主任务只生成一张总宫格图 → 每张正式背景、人物和道具由独立 Worker 单独生成 → rembg → 完整逐字稿一次 TTS → Whisper 对齐 → 字幕驱动 Remotion 动画 → 低清样片与 QA → 等待“低清确认” → 高清渲染与最终 QA。
+
+整个过程中优先自主推进。只有系统权限、密钥、内容方向、分镜和低清样片这些必须由我决定的事项才暂停询问；不要让我手动执行本可以由你完成的配置步骤。
 ```
 
-核心特点：
+## Agent 会自动完成
 
-- 用户先建立自己的内容方向，不携带作者的私有账号圣经；
-- 主任务只生成一张总宫格图，每张正式素材交给独立 Worker；
-- Seed-TTS 2 使用完整逐字稿一次合成，不按场景拆开；
-- 所有动画、镜头、标签和音效由字幕 Cue 驱动；
-- 分镜与低清样片各有一次强制人工确认；
-- 交付 1920×1080、30fps、H.264/AAC 成片与完整 QA。
+- 判断项目是否已经克隆，并接管正确的工作目录；
+- 安装和验证 Remotion、Seed‑TTS 2、rembg、Whisper、FFmpeg 及项目依赖；
+- 安装项目 Skill，并检查 Imagegen、Worker/Subagent 与 Remotion 能力；
+- 采集你的内容方向，建立可持续复用的账号内容配置；
+- 从研究和逐字稿一路制作到 1080p VOX 拼贴视频；
+- 对字幕、素材、画幅、音轨、响度和最终文件执行 QA。
 
-## 快速开始
-
-1. 安装 Git、Node.js 20+、pnpm 9+、Python 3.10、FFmpeg/FFprobe。
-2. 克隆仓库，并按 [安装说明](docs/INSTALL.md) 安装 Skill 与依赖。
-3. 按 [配置说明](docs/CONFIGURATION.md) 在本地配置 TTS；不要把 API Key 发给 Agent 或提交到 Git。
-4. 把 [Agent 启动提示词](AGENT_BOOTSTRAP_PROMPT.md) 复制给你的 Agent。
-5. Agent 完成环境检查后，会先向你收集内容方向并等待“方向确认”。
-
-准备推送自己的 GitHub 仓库时，请再看 [GitHub 发布清单](docs/PUBLISH_TO_GITHUB.md)。
-
-Windows：
-
-```powershell
-.\scripts\setup.ps1
-```
-
-macOS / Linux：
-
-```bash
-chmod +x scripts/setup.sh
-./scripts/setup.sh
-```
-
-环境检查：
-
-```bash
-cd studio
-pnpm run doctor
-```
-
-## 推荐的 Codex 能力
-
-- 内置 Imagegen：生成宫格图、背景、人物和道具；项目脚本不调用 OpenAI 图片 API。
-- Worker/Subagent：执行一张素材一个任务的调度协议。
-- Remotion 插件：推荐安装，用于 Agent 编写或调整 Remotion 动画；本地渲染仍由项目 npm 依赖完成。
-
-## 目录
+## 制作流程
 
 ```text
-.codex-plugin/              Codex 插件清单
-skills/vox-video-studio/    可安装的通用 Skill
-studio/                     Remotion、字幕、TTS、抠图和 QA 工程
-docs/                       安装、配置、流程和排错文档
-scripts/                    Windows/macOS/Linux 初始化脚本
-AGENT_BOOTSTRAP_PROMPT.md   可直接复制给 Agent 的启动指令
+内容方向 → 方向确认 → 选题与研究 → 逐字稿与分镜 → 分镜确认
+→ 总宫格图 → 独立素材 Worker → rembg → 整段 TTS
+→ Whisper 字幕 → 字幕驱动动画 → 低清样片 → 低清确认
+→ 1920×1080 成片 → 最终 QA
 ```
 
-## 常用命令
+你只需要提供自己的内容想法和所需的 Seed‑TTS 2 密钥，并在三个关键节点做决定：`方向确认`、`分镜确认`、`低清确认`。
 
-在 `studio/` 中运行：
+## 最终交付
 
-```bash
-pnpm run episode:new -- --id my-first-episode
-pnpm run assets:matte -- --episode my-first-episode
-pnpm run audio:build -- --episode my-first-episode
-pnpm run timeline:build -- --episode my-first-episode
-pnpm run render:preview -- --episode my-first-episode
-pnpm run qa -- --episode my-first-episode
-pnpm run render:final -- --episode my-first-episode
-pnpm run qa -- --episode my-first-episode
-```
+- 1920×1080、30fps、H.264/AAC 成片；
+- 960×540 低清样片和场景关键帧；
+- 逐字稿、研究记录、分镜和字幕时间轴；
+- 背景、人物、道具、抠图素材和完整提示词；
+- QA 报告、联系表及音乐版权署名。
 
-## 许可与第三方组件
+## License
 
-项目代码采用 MIT License。Remotion 有自己的许可条款，商业使用前请阅读 [Remotion License](https://github.com/remotion-dev/remotion/blob/main/LICENSE.md)。第三方组件和默认 BGM 说明见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
+项目代码采用 MIT License。Remotion 及其他第三方组件适用各自的许可条款，详见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。

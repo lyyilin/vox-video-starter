@@ -65,4 +65,4 @@ try {
   Pop-Location
 }
 
-Write-Host "Setup complete. Next: run scripts/install-skill.ps1, start a new Agent task, and paste AGENT_BOOTSTRAP_PROMPT.md."
+Write-Host "Setup complete. Return to the copy-and-paste Agent prompt in README.md."
