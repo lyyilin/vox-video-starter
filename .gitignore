@@ -1,5 +1,6 @@
 .DS_Store
 Thumbs.db
+tmp/
 studio/node_modules/
 studio/.venv/
 studio/.env

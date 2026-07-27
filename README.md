@@ -1,6 +1,31 @@
 # VOX Video Starter
 
-把一个内容方向交给 Codex，自动完成环境配置、素材生成、配音、字幕、VOX 纸片拼贴动画、审片和高清成片交付。
+<p align="center">
+  <img src="docs/assets/readme/vox-video-starter-hero.png" alt="VOX Video Starter 项目视觉" width="100%" />
+</p>
+
+<p align="center"><strong>把一个内容方向交给 Codex，自动完成环境配置、素材生成、配音、字幕、VOX 纸片拼贴动画、审片和高清成片交付。</strong></p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Codex-Agent_Workflow-111827?style=flat-square" alt="Codex Agent Workflow" />
+  <img src="https://img.shields.io/badge/Remotion-4.0-9E2F26?style=flat-square" alt="Remotion 4" />
+  <img src="https://img.shields.io/badge/Seed--TTS-2.0-C59A45?style=flat-square" alt="Seed-TTS 2" />
+  <img src="https://img.shields.io/badge/Timeline-Caption_Driven-315C70?style=flat-square" alt="Caption-driven timeline" />
+  <img src="https://img.shields.io/badge/License-MIT-171512?style=flat-square" alt="MIT License" />
+</p>
+
+## 效果展示
+
+下面是三条真实成片的 5 秒循环片段。GIF 仅用于快速预览，正式交付仍为带完整配音与音效的 1080p MP4。
+
+| 八百里加急：驿路与接力文书 | 全城同时关门：鼓声与城门信号 |
+| --- | --- |
+| ![八百里加急 VOX 动画片段](docs/assets/demos/express-relay.gif) | ![全城同时关门 VOX 动画片段](docs/assets/demos/city-gate-signal.gif) |
+
+<p align="center">
+  <strong>唐朝宵禁晚归：夜巡角色与通行文书</strong><br />
+  <img src="docs/assets/demos/tang-curfew.gif" alt="唐朝宵禁晚归 VOX 动画片段" width="70%" />
+</p>
 
 ## 复制给 Codex，开始使用
 
@@ -26,7 +51,7 @@ https://github.com/lyyilin/vox-video-starter.git
 整个过程中优先自主推进。只有系统权限、密钥、内容方向、分镜和低清样片这些必须由我决定的事项才暂停询问；不要让我手动执行本可以由你完成的配置步骤。
 ```
 
-## 为什么需要配置 Seed-TTS 2
+## 使用需要配置 Seed-TTS 2 API Key
 
 旁白不仅决定视频听起来是否自然，也是整条视频的时间轴：Whisper 会根据旁白生成字幕时间，人物入场、镜头切换、标签和音效再由字幕驱动。没有可用的 Seed-TTS 2 音色与 API Key，Agent 可以完成内容和环境配置，但无法生成正式配音并继续完成字幕驱动的成片。
 
