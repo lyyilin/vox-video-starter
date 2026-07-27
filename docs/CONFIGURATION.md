@@ -10,6 +10,8 @@
 
 默认配音使用火山引擎 Seed-TTS 2，完整逐字稿只发送一次。
 
+如果还没有音色 ID 或 API Key，请先查看 [Seed-TTS 2 图文配置教程](SEED_TTS2_SETUP.md)。
+
 1. 在火山引擎语音控制台开通语音合成，并创建 API Key。
 2. 把 `studio/.env.example` 复制为 `studio/.env`。
 3. 只在本地填写：
@@ -18,7 +20,7 @@
 VOLCENGINE_SPEECH_API_KEY=<YOUR_API_KEY>
 ```
 
-不要把 `.env` 提交到 Git，也不要把密钥发给 Agent。
+不要把 `.env` 提交到 Git。仅在你信任的本地 Codex 任务中提供密钥，并要求 Agent 直接写入 `.env`，不得回显、记录或提交密钥。
 
 在每期 `episode.json` 中配置：
 

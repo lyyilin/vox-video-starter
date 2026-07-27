@@ -18,13 +18,21 @@ https://github.com/lyyilin/vox-video-starter.git
 4. 自动完成 Remotion/npm 依赖、Python 虚拟环境、rembg 和 Seed-TTS 2 适配器的安装。运行适合当前系统的 setup 脚本，并在 studio 中运行 pnpm run doctor、pnpm run lint 和 pnpm test。普通网络错误自动重试；失败时先诊断原因并完成仍可执行的步骤。
 5. Whisper 模型、rembg 模型和 Remotion 浏览器按需下载，不要让大型下载阻塞首次内容方向配置；第一次真正用到它们时自动完成下载和验证。
 6. 检查当前 Codex 是否具有内置 Imagegen、Worker/Subagent 和 Remotion best-practices Skill/插件。可以通过当前环境安装或启用时由你处理；确实不可用时说明具体影响，不要伪造能力，也不要用项目里的 OpenAI API 替代内置 Imagegen。
-7. 检查 studio/.env。若 Seed-TTS 2 API Key 缺失，向我索取一次，并由你写入被 Git 忽略的 studio/.env。密钥不得被重复展示、回显、写进命令行、日志、代码、JSON、补丁差异或 Git 提交。不得读取或展示其他已有密钥。
+7. 检查 studio/.env 和默认音色。若 Seed-TTS 2 的音色 ID 或 API Key 缺失，先引导我阅读 docs/SEED_TTS2_SETUP.md，再向我索取一次。由你把 API Key 写入被 Git 忽略的 studio/.env，并把音色 ID 配置到项目中。密钥不得被重复展示、回显、写进命令行、日志、代码、JSON、补丁差异或 Git 提交。不得读取或展示其他已有密钥。
 8. 环境达到可用状态后，不要等待大型模型下载，立即开始首次内容配置。每轮最多问我三个简短问题，收集内容定位、目标受众、选题范围、证据标准、口播语气、视觉方向、内容禁区、发布平台和目标时长。
 9. 将整理后的完整方向写入 studio/config/content-profile.md，展示给我并暂停，等待我回复“方向确认”。方向确认前不要研究具体选题、写最终逐字稿、生成图片、调用 TTS 或渲染视频。
 10. 方向确认后，每条视频严格执行：选题与研究 → 最终逐字稿与分镜 → 等待“分镜确认” → 主任务只生成一张总宫格图 → 每张正式背景、人物和道具由独立 Worker 单独生成 → rembg → 完整逐字稿一次 TTS → Whisper 对齐 → 字幕驱动 Remotion 动画 → 低清样片与 QA → 等待“低清确认” → 高清渲染与最终 QA。
 
 整个过程中优先自主推进。只有系统权限、密钥、内容方向、分镜和低清样片这些必须由我决定的事项才暂停询问；不要让我手动执行本可以由你完成的配置步骤。
 ```
+
+## 为什么需要配置 Seed-TTS 2
+
+旁白不仅决定视频听起来是否自然，也是整条视频的时间轴：Whisper 会根据旁白生成字幕时间，人物入场、镜头切换、标签和音效再由字幕驱动。没有可用的 Seed-TTS 2 音色与 API Key，Agent 可以完成内容和环境配置，但无法生成正式配音并继续完成字幕驱动的成片。
+
+项目不会内置公共密钥或替你选择音色。你只需在火山引擎试听并选择一个音色、开通模型、取得音色 ID 和 API Key；其余接入与验证交给 Agent。
+
+**[查看 Seed-TTS 2 图文配置教程 →](docs/SEED_TTS2_SETUP.md)**
 
 ## Agent 会自动完成
 
